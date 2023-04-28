@@ -2,12 +2,12 @@ const UserServices = require('../services/user.service');
 exports.register = async (req, res, next) => {
     try {
         console.log("---req body---", req.body);
-        const { email, password } = req.body;
+        const { email, password, name, phone } = req.body;
         const duplicate = await UserServices.getUserByEmail(email);
         if (duplicate) {
             throw new Error(`UserName ${email}, Already Registered`)
         }
-        const response = await UserServices.registerUser(email, password);
+        const response = await UserServices.registerUser(email, password,name, phone);
 
         res.json({ status: true, success: 'User registered successfully' });
 
